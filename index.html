@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Builder - Professional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-section">
+                <h1>PDF Builder</h1>
+                <span class="current-page-indicator" id="currentPageIndicator">Seite 1</span>
+            </div>
+            
+            <div class="toolbar-section controls">
+                <button onclick="addTextBox()" title="Text hinzufügen (Strg+T)">
+                    <span>+</span> Text
+                </button>
+                
+                <button onclick="addNewPage()" title="Neue Seite nach aktueller (Strg+N)">
+                    <span>+</span> Seite
+                </button>
+                
+                <div class="divider"></div>
+                
+                <select id="fontSelect" onchange="updateFont()" title="Schriftart">
+                    <option value="Arial">Arial</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Times New Roman">Times</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Courier New">Courier</option>
+                </select>
+                
+                <input type="number" id="fontSize" value="14" min="6" max="72" onchange="updateFontSize()" title="Schriftgröße">
+                
+                <button onclick="toggleBold()" id="boldBtn" class="format-btn" title="Fett (Strg+B)">
+                    <b>B</b>
+                </button>
+                
+                <button onclick="toggleItalic()" id="italicBtn" class="format-btn" title="Kursiv (Strg+I)">
+                    <i>I</i>
+                </button>
+                
+                <button onclick="toggleUnderline()" id="underlineBtn" class="format-btn" title="Unterstrichen (Strg+U)">
+                    <u>U</u>
+                </button>
+                
+                <div class="divider"></div>
+                
+                <button onclick="setAlignment('left')" class="format-btn" title="Links">
+                    ≡
+                </button>
+                
+                <button onclick="setAlignment('center')" class="format-btn" title="Zentriert">
+                    ≣
+                </button>
+                
+                <button onclick="setAlignment('right')" class="format-btn" title="Rechts">
+                    ≡
+                </button>
+                
+                <div class="divider"></div>
+                
+                <button onclick="openPageSettingsModal()" title="Seiteneinstellungen">
+                    ⚙ Seite
+                </button>
+                
+                <button onclick="undo()" title="Rückgängig (Strg+Z)" id="undoBtn">
+                    ↶ Undo
+                </button>
+                
+                <button onclick="redo()" title="Wiederherstellen (Strg+Y)" id="redoBtn">
+                    ↷ Redo
+                </button>
+                
+                <button onclick="downloadPDF()" class="download-btn" title="PDF herunterladen (Strg+S)">
+                    ⬇ Download
+                </button>
+            </div>
+        </div>
+
+        <!-- Workspace -->
+        <div class="workspace" id="workspace">
+            <div class="pages-container" id="pagesContainer">
+                <div class="page active-page" data-page="1" data-color="white" data-size="a4">
+                    <div class="page-content" id="page1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Settings Modal -->
+    <div id="pageSettingsModal" class="modal">
+        <div class="modal-content">
+            <h2>Seiteneinstellungen</h2>
+            
+            <div class="settings-section">
+                <h3>Seite auswählen</h3>
+                <div class="page-selector" id="pageSelector"></div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>Papierfarbe</h3>
+                <div class="color-options">
+                    <button onclick="setPaperColor('white')" class="color-btn white-btn">
+                        ⬜ Weiß
+                    </button>
+                    <button onclick="setPaperColor('black')" class="color-btn black-btn">
+                        ⬛ Schwarz
+                    </button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>Seitengröße</h3>
+                <div class="size-options">
+                    <button onclick="setPageSize('a4')" class="size-btn">A4 (210×297mm)</button>
+                    <button onclick="setPageSize('a3')" class="size-btn">A3 (297×420mm)</button>
+                    <button onclick="setPageSize('letter')" class="size-btn">Letter (216×279mm)</button>
+                    <button onclick="setPageSize('legal')" class="size-btn">Legal (216×356mm)</button>
+                </div>
+            </div>
+            
+            <button onclick="closePageSettingsModal()" class="close-modal">Schließen</button>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
